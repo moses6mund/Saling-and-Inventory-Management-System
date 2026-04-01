@@ -18,21 +18,25 @@ class ProductsExport implements FromCollection, WithHeadings
             'price',
             'cost_price',
             'quantity',
-            'alert_stock'
+            'alert_stock',
+            'created_at',
+            'updated_at'
         ])->get();
     }
 
     public function headings(): array
     {
         return [
-            '#',
+            'ID',
             'PRODUCT NAME',
             'DESCRIPTION',
             'BRAND',
             'SELLING PRICE',
             'BUYING PRICE',
             'QUANTITY',
-            'STOCK STATUS'
+            'STOCK STATUS',
+            'CREATED TIME',
+            'UPDATED TIME',
         ];
     }
 }

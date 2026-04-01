@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Exports\GenericExport;
+use App\Imports\GenericImport;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderDetailController extends Controller
 {
@@ -23,6 +25,33 @@ class OrderDetailController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function orderDetailExport()
+    {
+        $columns = [
+
+        ];
+
+        $headings = [
+
+        ];
+
+        return Excel::download(
+        new GenericExport(
+        OrderDetail::class, $columns, $headings), 
+        'orderdetail.csv');
+    }
+
+    public function orderDetailImport(Request $request)
+    {
+        $request->validate([
+        '' => 'required|mimes:xlsl,csv'
+        ]);
+        $file = $request->file('file');
+
+        Excel::import(
+            new GenericImport(OrderDetail::class), $file
+        );
+    }
     public function create()
     {
         //

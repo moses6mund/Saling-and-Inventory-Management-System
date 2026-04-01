@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
         Route::post('product-import', [ProductController::class,'import'])->name('products.import');
         Route::get('product-export', [ProductController::class, 'exports'])->name('products.export'); 
+        Route::post('order-import', [OrderDetailController::class,'orderDetailImport'])->name('orders.import');
+        Route::get('order-export', [OrderDetailController::class, 'orderDetailExport'])->name('orders.export');
     });
     
     // Both admin and regular users
