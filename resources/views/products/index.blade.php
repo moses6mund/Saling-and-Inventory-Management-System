@@ -12,8 +12,17 @@
                             <i class="fas fa-box mr-2"></i>Products Management
                         </h5>
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProduct">
-                            <i class="fa fa-plus mr-1"></i> Add New Product
+                            <i class="fa fa-plus"></i> Add New Product
                         </button>
+                        <form method="POST" action="{{ route('products.import') }}" enctype="multipart/form-data">
+                            <div class="mt-2">
+                                <label for="file">Import</label>
+                                <input type="file" name="file" id="file" class="form-control">
+                            </div>
+                            <div class="mt-2">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="card-body">
@@ -86,12 +95,14 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center d-flex justify-content-center gap-2" >
                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#editProduct{{ $product->id }}">
-                                            <i class="fa fa-edit"></i>
+                                            {{-- <i class="fa fa-edit"></i> --}}
+                                            edit
                                         </button>
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteProduct{{ $product->id }}">
-                                            <i class="fa fa-trash"></i>
+                                            {{-- <i class="fa fa-trash"></i> --}}
+                                            delete
                                         </button>
                                     </td>
                                 </tr>

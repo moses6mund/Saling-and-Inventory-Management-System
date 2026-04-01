@@ -17,12 +17,10 @@ class UserController extends Controller
     {
         $query = User::query();
         
-        // Filter by role if specified
         if (request()->has('role') && request('role') !== '') {
             $query->where('is_admin', request('role'));
         }
         
-        // Filter by search term if specified
         if (request()->has('search') && request('search') !== '') {
             $searchTerm = request('search');
             $query->where(function($q) use ($searchTerm) {
@@ -175,7 +173,8 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             
             // Prevent deleting the last admin
-            if ($user->is_admin == 1 && User::where('is_admin', 1)->count() <= 1) {
+            $notAdminNumber = User::where('is_admin', 1)->count();
+            if ($user->is_admin == 1 && $notAdminNumber <= 1) {
                 return redirect()->route('users.index')
                     ->with('error', 'Cannot delete the last admin user.');
             }

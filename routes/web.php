@@ -11,9 +11,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellingController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\OrderDetailController;
 
 /*
@@ -42,13 +42,14 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::resource('users', UserController::class);
-        Route::resource('/transactions', TransactionController::class);
+        // Route::resource('/transactions', TransactionController::class);
         Route::resource('/sellings', OrderDetailController::class);
         Route::resource('/products', ProductController::class);
         Route::resource('/suppliers', SupplierController::class);
-        Route::resource('/companies', CompanyController::class);
+        // Route::resource('/companies', CompanyController::class);
         Route::get('/profit', [OrderController::class, 'profit'])->name('profit.index');
         Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        Route::post('product-import', [ProductController::class,'import'])->name('products.import');
     });
     
     // Both admin and regular users

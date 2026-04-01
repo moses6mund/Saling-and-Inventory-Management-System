@@ -6,6 +6,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\DB;
+
 class ProductController extends Controller
 {
     /**
@@ -105,5 +107,54 @@ class ProductController extends Controller
             return back()->with('Error','User not foun');
         }
         return back()->with('Success', 'Product Deleted Successfull');
+    }
+
+    public function export()
+    {
+        $products = DB::table('products')->get();
+
+        $fileName = 'products_export.csv';
+
+        $headers = [
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+        ];
+
+        $callback = function () use ($products) {
+            $file = fopen('php://output', 'w');
+
+            // Header row
+            fputcsv($file, [
+                'id','product_name','description','brand','price',
+                'cost_price','quantity','alert_stock','created_at','updated_at'
+            ]);
+
+            foreach ($products as $product) {
+                fputcsv($file, [
+                    $product->id,
+                    $product->product_name,
+                    $product->description,
+                    $product->brand,
+                    $product->price,
+                    $product->cost_price,
+                    $product->quantity,
+                    $product->alert_stock,
+                    $product->created_at,
+                    $product->updated_at,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return back()->with('products.index',[
+            'products' => $products,
+            'headers' => $headers
+        ]);
+    }
+
+    public function import(Request $request)
+    {
+        dd($request->all());
     }
 }
