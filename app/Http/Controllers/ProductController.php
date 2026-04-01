@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ProductsImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -155,6 +156,11 @@ class ProductController extends Controller
 
     public function import(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'file' => 'required|max:2024'
+        ]);
+
+        Excel::import(new ProductsImport, $request->file('file'));
+        return back()->with('success', 'Import is done successful');
     }
 }

@@ -7,22 +7,28 @@
         <div class="col-md-9">
             <div class="card shadow-sm">
                 <div class="card-header bg-white py-3">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
                         <h5 class="mb-0 font-weight-bold text-primary">
-                            <i class="fas fa-box mr-2"></i>Products Management
+                            <i class="fas fa-box mr-2"></i> Products Management
                         </h5>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProduct">
-                            <i class="fa fa-plus"></i> Add New Product
-                        </button>
-                        <form method="POST" action="{{ route('products.import') }}" enctype="multipart/form-data">
-                            <div class="mt-2">
-                                <label for="file">Import</label>
-                                <input type="file" name="file" id="file" class="form-control">
-                            </div>
-                            <div class="mt-2">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+
+                        <div class="d-flex align-items-center">
+                            <form method="POST" action="{{ route('products.import') }}" enctype="multipart/form-data" class="mr-2">
+                                @csrf
+                                <div class="input-group input-group-sm">
+                                    <input type="file" name="file" class="form-control">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" type="submit">
+                                            <i class="fa fa-upload"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProduct">
+                                <i class="fa fa-plus"></i> Add New Product
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
