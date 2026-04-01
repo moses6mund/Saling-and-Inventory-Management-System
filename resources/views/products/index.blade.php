@@ -55,6 +55,7 @@
                     @enderror
 
                     <div class="table-responsive">
+                        <a class="btn btn-success mb-2" href="{{route('products.export')}}">Export Products</a>
                         <table class="table table-bordered table-hover" id="userTable">
                             <thead class="thead-light">
                                 <tr>

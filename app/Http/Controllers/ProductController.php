@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsExport;
 use App\Imports\ProductsImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -162,5 +163,10 @@ class ProductController extends Controller
 
         Excel::import(new ProductsImport, $request->file('file'));
         return back()->with('success', 'Import is done successful');
+    }
+
+    public function exports()
+    {
+        return Excel::download(new ProductsExport, 'products.csv');
     }
 }

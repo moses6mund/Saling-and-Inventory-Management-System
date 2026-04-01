@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profit', [OrderController::class, 'profit'])->name('profit.index');
         Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
         Route::post('product-import', [ProductController::class,'import'])->name('products.import');
+        Route::get('product-export', [ProductController::class, 'exports'])->name('products.export'); 
     });
     
     // Both admin and regular users
